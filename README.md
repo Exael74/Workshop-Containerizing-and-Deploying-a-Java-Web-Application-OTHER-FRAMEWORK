@@ -94,7 +94,7 @@ The commit that introduces concurrent request handling, graceful shutdown, envir
 Implement concurrent request handling and graceful shutdown
 ```
 
-See the repository's commit history on GitHub for the exact commit hash and diff.
+Commit: [`ebb8655`](https://github.com/Exael74/Workshop-Containerizing-and-Deploying-a-Java-Web-Application-OTHER-FRAMEWORK/commit/ebb8655963347382ce67a57e535064fc67ee06fc)
 
 ## 8. Known Limitations
 
