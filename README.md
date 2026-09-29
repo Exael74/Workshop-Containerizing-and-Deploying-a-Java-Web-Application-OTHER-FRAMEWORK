@@ -84,7 +84,9 @@ Published on Docker Hub: **https://hub.docker.com/r/exael74/custom-http-framewor
 | [`evidence/02-ec2-public-deployment-greeting.jpg`](evidence/02-ec2-public-deployment-greeting.jpg) | Browser screenshot of the EC2-deployed container responding from the public internet |
 | [`evidence/03-ec2-deploy-output.txt`](evidence/03-ec2-deploy-output.txt) | Full pull/run/verify transcript on the EC2 instance, alongside the already-running Spring Boot container |
 
-**Public deployment URL:** http://54.175.21.62:8081/greeting?name=AWS
+**Public deployment URL (was live during evidence capture, instance now terminated):** http://54.175.21.62:8081/greeting?name=AWS
+
+> ⚠️ **Decommissioned:** the shared EC2 instance has since been terminated to avoid unnecessary AWS Academy lab charges. The URL above is no longer reachable; it is preserved as proof the deployment worked while it was live. See `.docs/DEPLOYMENT-STEPS.md` for the full runbook, including this decommissioning step.
 
 ## 7. Commit History
 
