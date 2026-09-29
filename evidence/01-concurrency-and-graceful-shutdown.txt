@@ -1,0 +1,28 @@
+$ docker build -t exael74/custom-http-framework:1.0 .
+...
+naming to docker.io/exael74/custom-http-framework:1.0 done
+
+$ docker run -d --name custom-http-framework -e PORT=35000 -p 35000:35000 exael74/custom-http-framework:1.0
+4ac11a9445cbbc2802a612aa98d3d3330e30b1e124c4cc19068b716be3d55acd
+
+$ curl "http://localhost:35000/greeting?name=Docker"
+Hello, Docker
+$ curl "http://localhost:35000/health"
+{"status":"UP","thread":"pool-1-thread-2"}
+
+# Concurrency test: 10 requests fired in parallel with & / wait
+$ for i in 1 2 3 4 5 6 7 8 9 10; do curl -s "http://localhost:35000/greeting?name=C$i" & done; wait
+Hello, C1Hello, C2Hello, C3Hello, C4Hello, C5Hello, C6Hello, C7Hello, C8Hello, C9Hello, C10
+# All 10 requests were served concurrently by the fixed thread pool (not queued one-by-one).
+
+# Graceful shutdown test: docker stop sends SIGTERM to PID 1 in the container
+$ docker stop custom-http-framework
+custom-http-framework
+
+$ docker logs custom-http-framework
+[HttpServer] Listening on port 35000 with a thread pool of 20 workers.
+[HttpServer] Shutdown signal received. Closing the listening socket...
+[HttpServer] Waiting for in-flight requests to finish...
+[HttpServer] Server stopped.
+# The JVM shutdown hook intercepted SIGTERM, stopped accepting new connections,
+# drained the thread pool, and exited cleanly instead of being killed abruptly.

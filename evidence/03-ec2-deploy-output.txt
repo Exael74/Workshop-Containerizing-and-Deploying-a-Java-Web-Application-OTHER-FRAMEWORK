@@ -1,0 +1,27 @@
+Same EC2 instance used for the Spring Boot workshop (virtualization-lab, i-0f776796ea6e335f1,
+Amazon Linux 2023, t2.micro, us-east-1), running this framework as a second, independent container.
+
+$ sudo docker pull exael74/custom-http-framework:1.0
+Digest: sha256:a78788e34df96e2d9a3971932a087c02578b025d7bcf06639e5c4e1042b1aa7c
+Status: Downloaded newer image for exael74/custom-http-framework:1.0
+
+$ sudo docker run -d --name custom-http-framework --restart unless-stopped \
+    -e PORT=35000 -p 8081:35000 exael74/custom-http-framework:1.0
+24d135e1daa4c11637ec6df4e8bb5c6e2729ccc8aee4efbe2a68bea567de31b3
+
+$ sudo docker ps
+CONTAINER ID   IMAGE                               PORTS                                         NAMES
+24d135e1daa4   exael74/custom-http-framework:1.0   0.0.0.0:8081->35000/tcp, :::8081->35000/tcp   custom-http-framework
+d501d2335f61   exael74/virtualizationlab:1.0       0.0.0.0:8080->9000/tcp, :::8080->9000/tcp     virtualization-lab
+
+$ sudo docker logs custom-http-framework
+[HttpServer] Listening on port 35000 with a thread pool of 20 workers.
+
+# Security group rule added: Custom TCP 8081, source 0.0.0.0/0 (public demo, same
+# criterion already approved for port 8080 in the Spring Boot repo).
+
+# Verified from an external machine (not via SSH):
+$ curl "http://54.175.21.62:8081/greeting?name=AWS"
+Hello, AWS
+$ curl "http://54.175.21.62:8081/health"
+{"status":"UP","thread":"pool-1-thread-2"}
