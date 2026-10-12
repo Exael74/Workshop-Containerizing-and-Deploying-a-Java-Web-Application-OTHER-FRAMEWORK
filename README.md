@@ -87,6 +87,10 @@ Published on Docker Hub: **https://hub.docker.com/r/exael74/custom-http-framewor
 **Public deployment URL (was live during evidence capture, instance now terminated):** http://54.175.21.62:8081/greeting?name=AWS
 
 > ⚠️ **Decommissioned:** the shared EC2 instance has since been terminated to avoid unnecessary AWS Academy lab charges. The URL above is no longer reachable; it is preserved as proof the deployment worked while it was live. See `.docs/DEPLOYMENT-STEPS.md` for the full runbook, including this decommissioning step.
+>
+> A second EC2 instance (same configuration, IP `13.220.217.237`) was launched afterward specifically to record the demonstration video below, then terminated again once recording finished.
+
+**Demonstration video:** [`demo-video.mkv`](demo-video.mkv) — shows the local Docker build/run, concurrency under parallel requests, graceful shutdown via `docker stop`, and the EC2 deployment responding live from the public internet.
 
 ## 7. Commit History
 
